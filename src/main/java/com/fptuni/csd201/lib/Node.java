@@ -5,18 +5,20 @@ import com.fptuni.csd201.object.Book;
 public class Node {
     Book info;
     Node left = null, right = null;
+    int height;
     
     Node(){    
     }
     
-    Node(Book info, Node left, Node right){
+    Node(Book info, Node left, Node right, int height){
         this.info = info;
         this.left = left;
         this.right = right;
+        this.height = height;
     }
     
     Node(Book info){
-        this(info, null, null);
+        this(info, null, null,1);
     }
     
     public Book getInfo(){

@@ -61,6 +61,7 @@ public class BookServiceImpl implements BookService {
     }
     @Override
     public void balancing() {
+        binaryTree.balanceTree();
     }
     @Override
     public Book searchBookbyName(String name) {
