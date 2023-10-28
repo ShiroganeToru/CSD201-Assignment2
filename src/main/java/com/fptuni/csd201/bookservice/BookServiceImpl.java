@@ -5,7 +5,6 @@
 package com.fptuni.csd201.bookservice;
 
 import com.fptuni.csd201.lib.BinaryTree;
-import com.fptuni.csd201.lib.Node;
 import com.fptuni.csd201.object.Book;
 
 /**
@@ -15,11 +14,9 @@ import com.fptuni.csd201.object.Book;
 public class BookServiceImpl implements BookService {
 
     private BinaryTree binaryTree;
-    private Node root;
 
     public BookServiceImpl() {
         binaryTree = new BinaryTree();
-        root = null;
     }
 
     @Override
