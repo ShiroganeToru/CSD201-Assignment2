@@ -267,11 +267,11 @@ public class BinaryTree {
     }
 
     //9. Search book by name
-    public Book search(String name) {
-        return search(root, name);
+    public Book searchBookByName(String name) {
+        return searchBookByName(root, name);
     }
 
-    public Book search(Node node, String name) {
+    public Book searchBookByName(Node node, String name) {
         if (node == null) {
             return null;
         }
@@ -280,12 +280,12 @@ public class BinaryTree {
             return node.info;
         }
 
-        if (search(node.left, name) != null) {
-            return search(node.left, name);
+        if (searchBookByName(node.left, name) != null) {
+            return searchBookByName(node.left, name);
         }
 
-        if (search(node.right, name) != null) {
-            return search(node.right, name);
+        if (searchBookByName(node.right, name) != null) {
+            return searchBookByName(node.right, name);
         }
 
         return null;

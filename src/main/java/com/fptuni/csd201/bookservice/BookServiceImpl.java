@@ -74,6 +74,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book searchBookbyName(String name) {
-        return binaryTree.search(name);
+        return binaryTree.searchBookByName(name);
     }
 }
