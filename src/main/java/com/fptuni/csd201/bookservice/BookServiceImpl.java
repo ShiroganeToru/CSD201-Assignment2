@@ -5,6 +5,7 @@
 package com.fptuni.csd201.bookservice;
 
 import com.fptuni.csd201.lib.BinaryTree;
+import com.fptuni.csd201.lib.Node;
 import com.fptuni.csd201.object.Book;
 
 /**
@@ -12,16 +13,23 @@ import com.fptuni.csd201.object.Book;
  * @author DUNGHUYNH
  */
 public class BookServiceImpl implements BookService {
+
     private BinaryTree binaryTree;
-    
-    public BookServiceImpl(){
+    private Node root;
+
+    public BookServiceImpl() {
         binaryTree = new BinaryTree();
+        root = null;
     }
-    
+
     @Override
     public boolean addBook(Book book) {
-        binaryTree.insert(book);
-        return true;
+        if(binaryTree.checkBook(book) != null){
+            return false;
+        } else {
+            binaryTree.insert(book);
+            return true;
+        }
     }
 
     @Override
@@ -31,7 +39,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void showBook(int method) {
-        switch(method){
+        switch (method) {
             case 1:
                 binaryTree.inOrder();
                 break;
@@ -56,16 +64,19 @@ public class BookServiceImpl implements BookService {
         binaryTree.removeByBookCode(bookCode);
         return true;
     }
+
     @Override
     public void printAvailableBook() {
         binaryTree.printAvailable();
     }
+
     @Override
     public void balancing() {
         binaryTree.balanceTree();
     }
+
     @Override
     public Book searchBookbyName(String name) {
         return binaryTree.search(name);
-    }    
+    }
 }

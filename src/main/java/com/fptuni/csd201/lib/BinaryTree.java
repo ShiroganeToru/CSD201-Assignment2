@@ -20,7 +20,7 @@ public class BinaryTree {
     public BinaryTree() {
         root = null;
     }
-
+    
     //1. Add book
     public void insert(Book x) {
         Node newNode = new Node(x);
@@ -46,7 +46,23 @@ public class BinaryTree {
             }
         }
     }
-
+    
+    public Node checkBook(Book book){
+        return checkBook(root,book);
+    }
+    
+    public Node checkBook(Node node, Book book){
+        if(node == null) return null;
+        
+        if(book.getCode().compareTo(node.info.getCode()) < 0){
+            return checkBook(node.left,book);
+        } else if(book.getCode().compareTo(node.info.getCode()) > 0){
+            return checkBook(node.right,book);
+        } else {
+            return node;
+        }
+    }
+    
     public void printBook(Book book) {
         if (book != null) {
             System.out.println(book);
