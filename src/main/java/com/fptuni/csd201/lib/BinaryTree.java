@@ -21,6 +21,7 @@ public class BinaryTree {
         root = null;
     }
 
+    //1. Add book
     public void insert(Book x) {
         Node newNode = new Node(x);
         if (root == null) {
@@ -44,29 +45,15 @@ public class BinaryTree {
                 addNode(node.right, newNode);
             }
         }
+    }
 
-        updateHeight(node);
-        int balanceFactor = getBalanceFactor(node);
-
-        if (balanceFactor > 1) {
-            if (node.left.info.getCode().compareTo(newNode.info.getCode()) > 0) {
-                rotateRight(node);
-            } else {
-                node.left = rotateLeft(node.left);
-                rotateRight(node);
-            }
-        }
-
-        if (balanceFactor < -1) {
-            if (node.right.info.getCode().compareTo(newNode.info.getCode()) > 0) {
-                rotateLeft(node);
-            } else {
-                node.right = rotateRight(node.right);
-                rotateLeft(node);
-            }
+    public void printBook(Book book) {
+        if (book != null) {
+            System.out.println(book);
         }
     }
 
+    //2. In-order traversal
     public void inOrder() {
         inOrderTraversal(root);
     }
@@ -81,6 +68,7 @@ public class BinaryTree {
         inOrderTraversal(node.right);
     }
 
+    //3. Breadth-first Traversal
     public void breadthFirst() {
         if (root == null) {
             return;
@@ -102,6 +90,32 @@ public class BinaryTree {
         }
     }
 
+    //4. Search book by code
+    public Book searhByBookCode(String bookCode) {
+        return searchByBookCode(root, bookCode);
+    }
+
+    public Book searchByBookCode(Node node, String bookCode) {
+        if (node == null) {
+            return null;
+        }
+
+        if (node.info.getCode().equals(bookCode)) {
+            return node.info;
+        }
+
+        if (searchByBookCode(node.left, bookCode) != null) {
+            return searchByBookCode(node.left, bookCode);
+        }
+
+        if (searchByBookCode(node.right, bookCode) != null) {
+            return searchByBookCode(node.right, bookCode);
+        }
+
+        return null;
+    }
+
+    //5. Count book
     public int totalNode() {
         return countNode(root);
     }
@@ -117,6 +131,50 @@ public class BinaryTree {
         return countLeft + countRight + 1;
     }
 
+    //6. Remove book
+    public void removeByBookCode(String bookCode) {
+        root = removeByBookCode(root, bookCode);
+    }
+
+    public Node removeByBookCode(Node node, String bookCode) {
+        if (node == null) {
+            return null;
+        }
+
+        if (bookCode.compareTo(node.info.getCode()) < 0) {
+            node.left = removeByBookCode(node.left, bookCode);
+        } else if (bookCode.compareTo(node.info.getCode()) > 0) {
+            node.right = removeByBookCode(node.right, bookCode);
+        } else {
+            //Case 1: Node with only children
+            if (node.left == null) {
+                return node.right;
+            } else if (node.right == null) {
+                return node.left;
+            }
+
+            //Case 2: Node with two children
+            Node successor = findMin(node.right);
+
+            node.info = successor.info;
+            node.right = removeByBookCode(node.right, successor.info.getCode());
+        }
+        return node;
+    }
+
+    public Node findMin(Node node) {
+        if (node == null) {
+            return null;
+        }
+
+        while (node.left != null) {
+            node = node.left;
+        }
+
+        return node;
+    }
+
+    //7. Print available book
     public void printAvailable() {
         if (root == null) {
             return;
@@ -140,6 +198,7 @@ public class BinaryTree {
         }
     }
 
+    //8. Balance tree
     public int getHeight(Node node) {
         if (node == null) {
             return 0;
@@ -149,31 +208,6 @@ public class BinaryTree {
 
     public void updateHeight(Node node) {
         node.height = Math.max(getHeight(node.left), getHeight(node.right)) + 1;
-    }
-
-    public int getBalanceFactor(Node node) {
-        if (node == null) {
-            return 0;
-        }
-        return getHeight(node.left) - getHeight(node.right);
-    }
-
-    public Node rotateLeft(Node node) {
-        Node newRoot = node.right;
-        node.right = newRoot.left;
-        newRoot.left = node;
-        updateHeight(node);
-        updateHeight(newRoot);
-        return newRoot;
-    }
-
-    public Node rotateRight(Node node) {
-        Node newRoot = node.left;
-        node.left = newRoot.right;
-        newRoot.left = node;
-        updateHeight(node);
-        updateHeight(newRoot);
-        return newRoot;
     }
 
     public void balanceTree() {
@@ -214,5 +248,30 @@ public class BinaryTree {
         updateHeight(newNode);
 
         return newNode;
+    }
+
+    //9. Search book by name
+    public Book search(String name) {
+        return search(root, name);
+    }
+
+    public Book search(Node node, String name) {
+        if (node == null) {
+            return null;
+        }
+
+        if (name.equals(node.info.getName())) {
+            return node.info;
+        }
+
+        if (search(node.left, name) != null) {
+            return search(node.left, name);
+        }
+
+        if (search(node.right, name) != null) {
+            return search(node.right, name);
+        }
+
+        return null;
     }
 }

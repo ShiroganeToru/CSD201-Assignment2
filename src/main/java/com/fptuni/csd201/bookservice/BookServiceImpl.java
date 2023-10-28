@@ -26,7 +26,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void printBook(Book book) {
-        binaryTree.inOrder();
+        binaryTree.printBook(book);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book searchBookbyCode(String bookCode) {
-        return null;
+        return binaryTree.searhByBookCode(bookCode);
     }
 
     @Override
@@ -53,6 +53,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public boolean removeBook(String bookCode) {
+        binaryTree.removeByBookCode(bookCode);
         return true;
     }
     @Override
@@ -65,6 +66,6 @@ public class BookServiceImpl implements BookService {
     }
     @Override
     public Book searchBookbyName(String name) {
-         return null;
+        return binaryTree.search(name);
     }    
 }
